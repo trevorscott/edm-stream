@@ -43,9 +43,16 @@ heroku addons:attach <kafka-haiku-id> -a $app_name
 
 Where `$app_name` is the name of this app.
 
+You must also get the consumer-group id:
+
+```
+heroku kafka:consumer-groups
+```
+
 ## Config
 ```
 heroku config:set KAFKA_TOPIC=<your_kafka_topic>
+heroku config:set KAFKA_CONSUMER_GROUP=<you_kafka_consumer_group>
 ```
 
 ## Deploy
