@@ -26,6 +26,7 @@ let brokerHostnames = kafkaBrokerUrls.split(",").map((u)=>{
 
 // different consumer groupIDs for local dev & prod
 var consumer = new Kafka.KafkaConsumer({
+  'debug': 'all',
   'group.id': `${process.env.KAFKA_PREFIX}${process.env.KAFKA_CONSUMER_GROUP}`,
   'metadata.broker.list': brokerHostnames.toString(),
   'security.protocol': 'SSL',
@@ -36,9 +37,9 @@ var consumer = new Kafka.KafkaConsumer({
 }, {});
 
 consumer
-  .on('ready', function() {
+  .on('ready', function(arg) {
+    console.log('Kafka consumer ready.' + JSON.stringify(arg));
     consumer.subscribe([kafkaTopics]);
-    console.log(`kafka consumer ready and subscribed to ${kafkaTopics}`);
     consumer.consume();
   })
   .on('data', function(data) {
