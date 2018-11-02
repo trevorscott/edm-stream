@@ -26,7 +26,7 @@ let brokerHostnames = kafkaBrokerUrls.split(",").map((u)=>{
 
 // different consumer groupIDs for local dev & prod
 var consumer = new Kafka.KafkaConsumer({
-  'group.id': `${process.env.KAFKA_PREFIX}dfe-dashboard`,
+  'group.id': `${process.env.KAFKA_PREFIX}${process.env.KAFKA_CONSUMER_GROUP}`,
   'metadata.broker.list': brokerHostnames.toString(),
   'security.protocol': 'SSL',
   'ssl.ca.location':          `${currentPath}/temp-ssl/KAFKA_TRUSTED_CERT`,
