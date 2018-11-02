@@ -16,7 +16,7 @@ EDM-Dashboard
 ## Initial Setup
 
 ```
-git clone 
+git clone git@github.com:trevorscott/edm-stream.git && cd edm-stream
 heroku create $appname
 ```
 
