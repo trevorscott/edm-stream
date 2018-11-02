@@ -36,9 +36,9 @@ var consumer = new Kafka.KafkaConsumer({
   'group.id': `${process.env.KAFKA_PREFIX}${process.env.KAFKA_CONSUMER_GROUP}`,
   'metadata.broker.list': brokerHostnames.toString(),
   'security.protocol': 'SSL',
-  'ssl.ca.location':          `tmp/env/KAFKA_TRUSTED_CERT`,
-  'ssl.certificate.location': `tmp/env/KAFKA_CLIENT_CERT`,
-  'ssl.key.location':         `tmp/env/KAFKA_CLIENT_CERT_KEY`,
+  'ssl.ca.location':          "tmp/env/KAFKA_TRUSTED_CERT",
+  'ssl.certificate.location': "tmp/env/KAFKA_CLIENT_CERT",
+  'ssl.key.location':         "tmp/env/KAFKA_CLIENT_CERT_KEY",
   'enable.auto.commit': true
 }, {});
 
