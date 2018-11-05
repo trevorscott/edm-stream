@@ -6,10 +6,10 @@ Created with Blizzard's node.js kafka consumer: [node-rdkafka](https://github.co
 
 This app is part of a group of apps that all must be deployed in a particular order:
 
-1. [EDM-Relay](https://github.com/trevorscott/edm-relay)
-1. [EDM-UI](https://github.com/trevorscott/edm-ui)
-1. [EDM-Stream](https://github.com/trevorscott/edm-stream)
-1. [EDM-Dashboard](https://github.com/trevorscott/edm-dashboard)
+1. [edm-relay](https://github.com/trevorscott/edm-relay)
+1. [edm-ui](https://github.com/trevorscott/edm-ui)
+1. [edm-stream](https://github.com/trevorscott/edm-stream)
+1. [edm-dashboard](https://github.com/trevorscott/edm-dashboard)
 
 # Deploy
 
