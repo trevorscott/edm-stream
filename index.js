@@ -31,6 +31,7 @@ let brokerHostnames = kafkaBrokerUrls.split(",").map((u)=>{
   return URL.parse(u).host;
 });
 
+
 const connectTimeout = 5000;
 const connectTimoutId = setTimeout(() => {
       const message = `Failed to connect Kafka consumer (${connectTimeout}-ms timeout)`;

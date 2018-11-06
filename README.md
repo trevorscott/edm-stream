@@ -51,14 +51,22 @@ heroku kafka:consumer-groups
 
 ## Config
 ```
-heroku config:set KAFKA_TOPIC=<your_kafka_topic>
-heroku config:set KAFKA_CONSUMER_GROUP=<you_kafka_consumer_group>
+heroku config:set KAFKA_TOPIC="topic1,topic2,topic3"
+heroku config:set KAFKA_CONSUMER_GROUP="you_kafka_consumer_group"
 ```
 
 ## Deploy
 
 ```
 git push heroku master
+```
+
+## Scale Up
+
+Scale up your service to avoid sleeping dynos.
+
+```
+heroku ps:scale web=1:standard-1x
 ```
 
 # local dev
