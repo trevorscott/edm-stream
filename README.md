@@ -51,8 +51,8 @@ heroku kafka:consumer-groups
 
 ## Config
 ```
-heroku config:set KAFKA_TOPIC=<your_kafka_topic>
-heroku config:set KAFKA_CONSUMER_GROUP=<you_kafka_consumer_group>
+heroku config:set KAFKA_TOPIC="topic1,topic2,topic3"
+heroku config:set KAFKA_CONSUMER_GROUP="you_kafka_consumer_group"
 ```
 
 ## Deploy
