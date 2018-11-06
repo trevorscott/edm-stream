@@ -37,7 +37,6 @@ const connectTimoutId = setTimeout(() => {
       throw e;
     }, connectTimeout)
 
-
 //
 // Kafka Consumer w/ socket.io
 //
