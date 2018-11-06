@@ -31,6 +31,12 @@ let brokerHostnames = kafkaBrokerUrls.split(",").map((u)=>{
   return URL.parse(u).host;
 });
 
+const connectTimoutId = setTimeout(() => {
+      const message = `Failed to connect Kafka consumer (${connectTimeout}-ms timeout)`;
+      const e = new Error(message);
+      throw e;
+    }, connectTimeout)
+
 
 //
 // Kafka Consumer w/ socket.io
@@ -64,14 +70,13 @@ consumer.connect({}, (err, data) => {
 consumer
   .on('ready', (id, metadata) => {
     console.log(kafkaTopics);
-    //['milk-3411.edm-ui-click','milk-3411.edm-ui-pageload']
     consumer.subscribe(kafkaTopics); 
     consumer.consume();
     consumer.on('error', err => {
       console.log(`!      Error in Kafka consumer: ${err.stack}`);
     });
     console.log('Kafka consumer ready.' + JSON.stringify(metadata));
-    console.log(consumer.assignments());
+    clearTimeout(connectTimoutId);
   })
   .on('data', function(data) {
     console.log("data!");
