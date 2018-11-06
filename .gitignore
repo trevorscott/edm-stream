@@ -1,5 +1,6 @@
 env
 .env
+*.env
 
 node_modules/
 npm-debug.log
@@ -7,3 +8,7 @@ npm-debug.log
 
 temp-ssl
 temp-ssl/*
+tmp*
+tmp/*
+tmp/env*
+tmp/env/*
