@@ -61,6 +61,14 @@ heroku config:set KAFKA_CONSUMER_GROUP="you_kafka_consumer_group"
 git push heroku master
 ```
 
+## Scale Up
+
+Scale up your service to avoid sleeping dynos.
+
+```
+heroku ps:scale web=1:standard-1x
+```
+
 # local dev
 
 ## Mac OS High Sierra
