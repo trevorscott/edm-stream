@@ -11,15 +11,26 @@ const nodeEnv    = process.env.NODE_ENV || 'development';
 const fs         = require('fs');
 
 const currentPath  = process.cwd();
-//require('./write-certs-to-file.js')(currentPath);
-const connectTimeout = 5000;
+
+if (!process.env.KAFKA_PREFIX)          throw new Error('KAFKA_PREFIX is not set.')
+if (!process.env.KAFKA_URL)             throw new Error('KAFKA_URL is not set.')
+if (!process.env.KAFKA_CONSUMER_GROUP)  throw new Error('KAFKA_TOPIC is not set.')
+if (!process.env.KAFKA_TRUSTED_CERT)    throw new Error('KAFKA_TRUSTED_CERT is not set.')
+if (!process.env.KAFKA_CLIENT_CERT)     throw new Error('KAFKA_CLIENT_CERT is not set.')
+if (!process.env.KAFKA_CLIENT_CERT_KEY) throw new Error('KAFKA_CLIENT_CERT_KEY is not set.')
 
 // Kafka Config
 const kafkaBrokerUrls = process.env.KAFKA_URL;
-const kafkaTopics = `${process.env.KAFKA_PREFIX}${process.env.KAFKA_TOPIC}`;
+const kafkaTopicsString=process.env.KAFKA_TOPIC;
+
+let kafkaTopics = kafkaTopicsString.split(",");
+kafkaTopics = kafkaTopics.map((topic)=>{
+  return `${process.env.KAFKA_PREFIX}${topic}`
+});
 let brokerHostnames = kafkaBrokerUrls.split(",").map((u)=>{
   return URL.parse(u).host;
 });
+
 
 //
 // Kafka Consumer w/ socket.io
@@ -29,8 +40,6 @@ console.log('Initializing Kafka Consumer...')
 // different consumer groupIDs for local dev & prod
 var consumer = new Kafka.KafkaConsumer({
   // 'debug': 'all',
-  'api.version.request':      true,
-  'event_cb':                 true,
   //'enable.auto.commit':       false,
   'client.id':                `edm/${process.env.DYNO || 'localhost'}`,
   'group.id': `${process.env.KAFKA_PREFIX}${process.env.KAFKA_CONSUMER_GROUP}`,
@@ -43,21 +52,17 @@ var consumer = new Kafka.KafkaConsumer({
 }, {});
 
 
-// const connectTimoutId = setTimeout(() => {
-//       const message = `Failed to connect Kafka consumer (${connectTimeout}-ms timeout)`;
-//       const e = new Error(message);
-//     }, connectTimeout)
 consumer.connect({}, (err, data) => {
-  // if (err == 'no error'){
-  //   resolve(data);
-  // }
-    console.log(`consumer connection callback err: ${err}`);
-    // console.log(`consumer connection callback data: ${data}`);
+  if(err) {
+    console.error(`consumer connection callback err: ${err}`);
+  }
 });
+
 
 consumer
   .on('ready', (id, metadata) => {
-    consumer.subscribe([kafkaTopics]);
+    console.log(kafkaTopics);
+    consumer.subscribe(kafkaTopics); //['milk-3411.edm-ui-click','milk-3411.edm-ui-pageload']
     consumer.consume();
     consumer.on('error', err => {
       console.log(`!      Error in Kafka consumer: ${err.stack}`);
@@ -66,6 +71,7 @@ consumer
     console.log('Kafka consumer ready.' + JSON.stringify(metadata));
   })
   .on('data', function(data) {
+    console.log("data!");
     const message = data.value.toString()
     console.log(message, `Offset: ${data.offset}`, `partition: ${data.partition}`);
     console.log(consumer.assignments());
