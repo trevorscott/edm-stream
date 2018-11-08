@@ -42,12 +42,8 @@ const connectTimoutId = setTimeout(() => {
 //
 // Kafka Consumer w/ socket.io
 //
-
-console.log('Initializing Kafka Consumer...')
-// different consumer groupIDs for local dev & prod
 var consumer = new Kafka.KafkaConsumer({
   // 'debug': 'all',
-  //'enable.auto.commit':       false,
   'client.id':                `edm/${process.env.DYNO || 'localhost'}`,
   'group.id': `${process.env.KAFKA_PREFIX}${process.env.KAFKA_CONSUMER_GROUP}`,
   'metadata.broker.list': brokerHostnames.toString(),
@@ -55,9 +51,18 @@ var consumer = new Kafka.KafkaConsumer({
   'ssl.ca.location':          "tmp/env/KAFKA_TRUSTED_CERT",
   'ssl.certificate.location': "tmp/env/KAFKA_CLIENT_CERT",
   'ssl.key.location':         "tmp/env/KAFKA_CLIENT_CERT_KEY",
-  'enable.auto.commit': true
+  'enable.auto.commit': false,
+  'offset_commit_cb': function(err, topicPartitions) {
+    if (err) {
+      // There was an error committing
+      console.error("There was an error committing");
+      console.error(err);
+    } else {
+      // Commit went through. Let's log the topic partitions
+      console.log("New offset successfully committed.")
+    }
+  }
 }, {});
-
 
 consumer.connect({}, (err, data) => {
   if(err) {
@@ -66,7 +71,6 @@ consumer.connect({}, (err, data) => {
     console.log(`Connection to kafka broker successful: ${JSON.stringify(data)}`)
   }
 });
-
 
 consumer
   .on('ready', (id, metadata) => {
@@ -80,12 +84,10 @@ consumer
     clearTimeout(connectTimoutId);
   })
   .on('data', function(data) {
-    console.log("data!");
     const message = data.value.toString()
-    console.log(message, `Offset: ${data.offset}`, `partition: ${data.partition}`);
-    console.log(consumer.assignments());
-    // writeMessageToPostgres(message,consumer,data);
+    console.log(message, `Offset: ${data.offset}`, `partition: ${data.partition}`, `consumerId: edm/${process.env.DYNO || 'localhost'}`);
     socket.sockets.emit('event', message);
+    consumer.commitMessage(data);
   })
   .on('event.log', function(log) {
     console.log(log);
