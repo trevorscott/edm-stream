@@ -90,13 +90,23 @@ See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details
   npm install
 ```
 
+## Consumer Group for Local Dev
+
+If you are using your production kafka broker (not advised) for local development you can create a consumer group for your development consumer:
+
+```
+heroku kafka:consumer-groups:create <local dev consumer group name>
+```
+
 ## Required config
 
 You will need to grab information from your existing kafka cluster and set all of the required config vars on your local machine:
 
 ```
+export KAFKA_PREFIX=<your kafka prefix>
+export KAFKA_CONSUMER_GROUP=<your local dev consumer group>
 export KAFKA_URL=<your broker urls> \
-export KAFKA_TOPIC=<name of kafka topic>
+export KAFKA_TOPIC='topic1,topic2'
 export KAFKA_TRUSTED_CERT="multi
 line 
 cert"
@@ -111,18 +121,7 @@ cert
 
 These files must contain values generated from your [kafka addon SSL config vars](https://devcenter.heroku.com/articles/kafka-on-heroku#connecting-to-a-kafka-cluster).
 
-## Data
 
-### Event Schema
-
-```json
-{
-  "event_name": "test",
-  "event": "test-event",
-  "event_timestamp": "now",
-  "properties": {}
-}
-```
 
 ## Run your app
 
