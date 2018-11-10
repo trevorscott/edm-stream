@@ -18,6 +18,15 @@ if (!process.env.KAFKA_CONSUMER_GROUP)  throw new Error('KAFKA_TOPIC is not set.
 if (!process.env.KAFKA_TRUSTED_CERT)    throw new Error('KAFKA_TRUSTED_CERT is not set.')
 if (!process.env.KAFKA_CLIENT_CERT)     throw new Error('KAFKA_CLIENT_CERT is not set.')
 if (!process.env.KAFKA_CLIENT_CERT_KEY) throw new Error('KAFKA_CLIENT_CERT_KEY is not set.')
+if (!fs.existsSync('tmp/env/KAFKA_TRUSTED_CERT')) {
+  throw new Error('KAFKA_TRUSTED_CERT has not been written to file. Try executing the .profile script.');
+}
+if (!fs.existsSync('tmp/env/KAFKA_CLIENT_CERT')) {
+  throw new Error('KAFKA_CLIENT_CERT has not been written to file. Try executing the .profile script.');
+}
+if (!fs.existsSync('tmp/env/KAFKA_CLIENT_CERT_KEY')) {
+  throw new Error('KAFKA_CLIENT_CERT_KEY has not been written to file. Try executing the .profile script.');
+}
 
 // Kafka Config
 const kafkaBrokerUrls = process.env.KAFKA_URL;
