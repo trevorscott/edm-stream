@@ -78,7 +78,7 @@ heroku ps:scale web=1:standard-1x
 
 OpenSSL has been upgraded in High Sierra and homebrew does not overwrite default system libraries. That means when building node-rdkafka, because you are using openssl, you need to tell the linker where to find it:
 
-```
+```bash
 export CPPFLAGS=-I/usr/local/opt/openssl/include
 export LDFLAGS=-L/usr/local/opt/openssl/lib
 ```
@@ -91,16 +91,16 @@ See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details
 
 You should have already set up your kafka cluster when you set up `edm-relay`. You will need to set the kafka dev topics and dev consumer group names as enviornment variables. See [edm-relay](https://github.com/trevorscott/edm-relay/blob/master/README.md#kafka-setup) for more information.
 
-```
+```bash
 export KAFKA_CONSUMER_GROUP='edm-consumer-group-1-local'
 export KAFKA_TOPIC='edm-ui-click-local,edm-ui-pageload-local'
 ```
 
 You will also need to grab information from your existing kafka cluster (`heroku config`) and set all of the required config on your local machine:
 
-```
-export KAFKA_PREFIX=<your kafka prefix>
-export KAFKA_URL=<your broker urls> 
+```bash
+export KAFKA_PREFIX=<your-kafka-prefix>
+export KAFKA_URL=<your-broker-urls> 
 export KAFKA_TRUSTED_CERT="multi
 line 
 cert"
@@ -117,7 +117,7 @@ These files must contain values generated from your [kafka addon SSL config vars
 
 
 ## Write SSL Config to File
-```
+```bash
 ./.profile
 ```
 
