@@ -14,7 +14,8 @@ const currentPath  = process.cwd();
 
 if (!process.env.KAFKA_PREFIX)          throw new Error('KAFKA_PREFIX is not set.')
 if (!process.env.KAFKA_URL)             throw new Error('KAFKA_URL is not set.')
-if (!process.env.KAFKA_CONSUMER_GROUP)  throw new Error('KAFKA_TOPIC is not set.')
+if (!process.env.KAFKA_CONSUMER_GROUP)  throw new Error('KAFKA_CONSUMER_GROUP is not set.')
+if (!process.env.KAFKA_TOPIC)           throw new Error('KAFKA_TOPIC is not set.')
 if (!process.env.KAFKA_TRUSTED_CERT)    throw new Error('KAFKA_TRUSTED_CERT is not set.')
 if (!process.env.KAFKA_CLIENT_CERT)     throw new Error('KAFKA_CLIENT_CERT is not set.')
 if (!process.env.KAFKA_CLIENT_CERT_KEY) throw new Error('KAFKA_CLIENT_CERT_KEY is not set.')
