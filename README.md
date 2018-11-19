@@ -7,8 +7,9 @@ Created with Blizzard's node.js kafka consumer: [node-rdkafka](https://github.co
 This app is part of a group of apps that all must be deployed in a particular order:
 
 1. [edm-relay](https://github.com/trevorscott/edm-relay)
-1. [edm-ui](https://github.com/trevorscott/edm-ui)
 1. [edm-stream](https://github.com/trevorscott/edm-stream)
+1. [edm-stats](https://github.com/trevorscott/edm-stats)
+1. [edm-ui](https://github.com/trevorscott/edm-ui)
 1. [edm-dashboard](https://github.com/trevorscott/edm-dashboard)
 
 # Deploy
@@ -50,9 +51,11 @@ heroku kafka:consumer-groups
 ```
 
 ## Config
+You will need to tell `edm-stream` which topics to listen to
+
 ```
-heroku config:set KAFKA_TOPIC="topic1,topic2,topic3"
-heroku config:set KAFKA_CONSUMER_GROUP="you_kafka_consumer_group"
+heroku config:set KAFKA_TOPIC="edm-ui-click,edm-ui-pageload"
+heroku config:set KAFKA_CONSUMER_GROUP="edm-consumer-group-1"
 ```
 
 ## Deploy
@@ -90,25 +93,17 @@ See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details
   npm install
 ```
 
-## Consumer Group for Local Dev
-
-If you have already created a consumer group for local dev you can ignore this step.
-
-If you are using your production kafka broker (not advised) for local development you can create a consumer group for your development consumer:
-
-```
-heroku kafka:consumer-groups:create <local dev consumer group name>
-```
-
 ## Required config
 
-You will need to grab information from your existing kafka cluster and set all of the required config vars on your local machine:
+You should have already set up your kafka cluster when you set up `edm-relay`. You will need to set the kafka dev topics and dev consumer group names as enviornment variables. See [edm-relay](https://github.com/trevorscott/edm-relay/blob/master/README.md#kafka-setup) for more information.
+
+You will also need to grab information from your existing kafka cluster (`heroku config`) and set all of the required config on your local machine:
 
 ```
 export KAFKA_PREFIX=<your kafka prefix>
-export KAFKA_CONSUMER_GROUP=<your local dev consumer group>
-export KAFKA_URL=<your broker urls> \
-export KAFKA_TOPIC='topic1,topic2'
+export KAFKA_CONSUMER_GROUP='edm-consumer-group-1-local'
+export KAFKA_URL=<your broker urls> 
+export KAFKA_TOPIC='edm-ui-click-local,edm-ui-pageload-local'
 export KAFKA_TRUSTED_CERT="multi
 line 
 cert"
