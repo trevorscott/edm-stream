@@ -87,12 +87,6 @@ Then you can run npm install on your application to get it to build correctly.
 
 See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details.
 
-## Set Up
-```
-  git clone 
-  npm install
-```
-
 ## Required config
 
 You should have already set up your kafka cluster when you set up `edm-relay`. You will need to set the kafka dev topics and dev consumer group names as enviornment variables. See [edm-relay](https://github.com/trevorscott/edm-relay/blob/master/README.md#kafka-setup) for more information.
@@ -124,7 +118,6 @@ These files must contain values generated from your [kafka addon SSL config vars
 
 ## Write SSL Config to File
 ```
-chmod +x .profile
 ./.profile
 ```
 
@@ -133,6 +126,7 @@ chmod +x .profile
 Start the server from root:
 
 ```
+npm install
 npm start
 ```
 
