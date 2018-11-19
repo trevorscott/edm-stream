@@ -44,14 +44,9 @@ heroku addons:attach <kafka-haiku-id> -a $app_name
 
 Where `$app_name` is the name of this app.
 
-You must also get the consumer-group id :
-
-```
-heroku kafka:consumer-groups
-```
 
 ## Config
-You will need to tell `edm-stream` which topics to listen to
+You will need to tell `edm-stream` which topics to listen to and which consumer group it is part of:
 
 ```
 heroku config:set KAFKA_TOPIC="edm-ui-click,edm-ui-pageload"
