@@ -22,7 +22,7 @@ heroku create $appname
 
 ## Kafka Setup
 
-You should have created a multi-tenant kafka cluster with EDM-UI. You will need to share that cluster with this app. 
+You should have created a multi-tenant kafka cluster with `edm-relay`. You will need to share that cluster with this app. 
 
 First get the kafka cluster id:
 
@@ -43,7 +43,7 @@ heroku addons:attach <kafka-haiku-id> -a $app_name
 
 Where `$app_name` is the name of this app.
 
-You must also get the consumer-group id:
+You must also get the consumer-group id :
 
 ```
 heroku kafka:consumer-groups
@@ -91,6 +91,8 @@ See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details
 ```
 
 ## Consumer Group for Local Dev
+
+If you have already created a consumer group for local dev you can ignore this step.
 
 If you are using your production kafka broker (not advised) for local development you can create a consumer group for your development consumer:
 
