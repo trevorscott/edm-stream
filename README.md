@@ -18,7 +18,7 @@ This app is part of a group of apps that all must be deployed in a particular or
 
 ```
 git clone git@github.com:trevorscott/edm-stream.git && cd edm-stream
-heroku create $appname
+heroku create $app_name
 ```
 
 ## Kafka Setup
