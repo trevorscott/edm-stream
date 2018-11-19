@@ -97,13 +97,16 @@ See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details
 
 You should have already set up your kafka cluster when you set up `edm-relay`. You will need to set the kafka dev topics and dev consumer group names as enviornment variables. See [edm-relay](https://github.com/trevorscott/edm-relay/blob/master/README.md#kafka-setup) for more information.
 
+```
+export KAFKA_CONSUMER_GROUP='edm-consumer-group-1-local'
+export KAFKA_TOPIC='edm-ui-click-local,edm-ui-pageload-local'
+```
+
 You will also need to grab information from your existing kafka cluster (`heroku config`) and set all of the required config on your local machine:
 
 ```
 export KAFKA_PREFIX=<your kafka prefix>
-export KAFKA_CONSUMER_GROUP='edm-consumer-group-1-local'
 export KAFKA_URL=<your broker urls> 
-export KAFKA_TOPIC='edm-ui-click-local,edm-ui-pageload-local'
 export KAFKA_TRUSTED_CERT="multi
 line 
 cert"
