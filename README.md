@@ -16,6 +16,10 @@ This app is part of a group of apps that all must be deployed in a particular or
 
 # Deploy
 
+## Terraform Deploy
+
+To deploy this entire demo with a single command see [edm-terraform](https://github.com/trevorscott/edm-terraform).
+
 ## Initial Setup
 
 ```
