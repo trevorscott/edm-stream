@@ -12,7 +12,7 @@ This app is part of a group of apps that all must be deployed in a particular or
 1. [edm-ui](https://github.com/trevorscott/edm-ui)
 1. [edm-dashboard](https://github.com/trevorscott/edm-dashboard)
 
-![Event Driven Microservices with Apache Kafka on Heroku Demo Architecture](https://s3.amazonaws.com/octo-public/kafka-microservices.png "EDM")
+![Event Driven Microservices with Apache Kafka on Heroku Demo Architecture](https://s3.amazonaws.com/octo-public/kafka-microservices-v2.png "EDM")
 
 # Deploy
 
